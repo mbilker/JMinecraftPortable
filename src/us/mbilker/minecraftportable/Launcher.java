@@ -33,5 +33,9 @@ public class Launcher {
 			}
 		}
 	}
+	
+	public void run() {
+		
+	}
 
 }

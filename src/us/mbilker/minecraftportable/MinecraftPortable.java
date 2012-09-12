@@ -54,6 +54,7 @@ public class MinecraftPortable {
 		}
 		
 		launcher = new Launcher(launcherFile, launcherUrl);
+		launcher.run();
 	}
 
 }
