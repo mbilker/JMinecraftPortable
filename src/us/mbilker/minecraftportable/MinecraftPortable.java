@@ -1,60 +1,44 @@
 package us.mbilker.minecraftportable;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MinecraftPortable {
 	
-	public Platform platform;
-	
-	public Platform getPlatform() {
-		String osName = System.getProperty("os.name").toLowerCase();
-		if (osName.contains("linux")) return Platform.LINUX;
-		if (osName.contains("unix")) return Platform.UNIX;
-		if (osName.contains("solaris")) return Platform.SOLARIS;
-		if (osName.contains("sunos")) return Platform.SUNOS;
-		if (osName.contains("win")) return Platform.WINDOWS;
-		if (osName.contains("mac")) return Platform.MAC;
-		return Platform.UNIX;
-	}
-	
 	public static File currentDir = new File(System.getProperty("user.dir", "."));
 	public static File dataDir = new File(currentDir, "mcp_data");
-	public static File launcherDir = new File(currentDir, "launcher");
-	public static File serverDir = new File(currentDir, "server");
+	public static File serverDir = new File(dataDir, "server");
 	
 	public static File clientDir = new File(dataDir, "mc");
 	
-	public static File launcherFile = new File(launcherDir, "minecraft.jar");
-	public static String launcherUrl = "https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft.jar";
-	
-	public static File serverFile = new File(serverDir, "minecraft_server.jar");
-	public static String serverUrl = "https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar";
-	
-	private Launcher launcher;
-	
-	public MinecraftPortable() {
+	public MinecraftPortable(String[] args) {
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss aa");
+        Date date = new Date();
+		
+		Main.log("Minecraft Portable 2.8");
+		Main.log("by mbilker\n");
+		Main.log("Started at %s", dateFormat.format(date));
+		Main.log("Data directory: %s\n", dataDir.toString());
+		
 		if (!dataDir.exists()) {
-			Main.debugPrint("Data folder does not exist, creating. Typical on first start.");
+			Main.log("Data folder does not exist, creating. Typical on first start.");
 			dataDir.mkdir();
 		}
 		
-		if (!launcherDir.exists()) {
-			Main.debugPrint("Launcher folder does not exist, creating. Typical on first start.");
-			launcherDir.mkdir();
-		}
-		
 		if (!serverDir.exists()) {
-			Main.debugPrint("Server folder does not exist, creating. Typical on first start.");
+			Main.log("Server folder does not exist, creating. Typical on first start.");
 			serverDir.mkdir();
 		}
 		
 		if (!clientDir.exists()) {
-			Main.debugPrint(".minecraft folder does not exist, creating. Typical on first start.");
+			Main.log(".minecraft folder does not exist, creating. Typical on first start.");
 			clientDir.mkdir();
 		}
 		
-		launcher = new Launcher(launcherFile, launcherUrl);
-		launcher.run();
+		LauncherFrame.main(args);
 	}
 
 }
