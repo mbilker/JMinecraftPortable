@@ -38,12 +38,7 @@ public class MinecraftPortable {
 			clientDir.mkdir();
 		}
 		
-<<<<<<< HEAD
 		LauncherFrame.main(args);
-=======
-		launcher = new Launcher(launcherFile, launcherUrl);
-		launcher.run();
->>>>>>> ff08e77... Added some things
 	}
 
 }
