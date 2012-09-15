@@ -1,5 +1,6 @@
 package us.mbilker.minecraftportable;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,6 @@ public class Main {
 	public static PrintStream createLoggingProxy(final PrintStream realPrintStream) {
         return new PrintStream(realPrintStream) {
             public void print(final String string) {
-                //realPrintStream.print(string);
                 logger.info(string);
             }
             public void println(final String string) {
@@ -30,13 +30,11 @@ public class Main {
     }
 	
 	public static void main(String[] args) {
-		System.setOut(createLoggingProxy(System.out));
-		System.setErr(createLoggingProxy(System.err));
-		logger.debug(Main.class.getName());
+		boolean doLaunch = false;
 		
 		float f = (Runtime.getRuntime().maxMemory() / 1024L / 1024L);
 		if (f > 511.0F)
-			new MinecraftPortable(args);
+			doLaunch = true;
 		else {
 			try {
 				String str = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
@@ -58,11 +56,27 @@ public class Main {
 				ProcessBuilder localProcessBuilder = new ProcessBuilder(localArrayList);
 				Process localProcess = localProcessBuilder.start();
 				if (localProcess == null) throw new Exception("!");
-				System.exit(0);
+				else {
+					try {
+		                int d;
+		                while ((d = localProcess.getInputStream().read()) != -1) {
+		                    System.out.write(d);
+		                }
+		            } catch (IOException ex) {
+		            }
+
+					localProcess.waitFor();
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 		        new MinecraftPortable(args);
 			}
+		}
+		
+		if (doLaunch == true) {
+			System.setOut(createLoggingProxy(System.out));
+			System.setErr(createLoggingProxy(System.err));
+			new MinecraftPortable(args);
 		}
 	}
 
