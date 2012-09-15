@@ -62,8 +62,3 @@ public void paintComponent(Graphics paramGraphics)
     paramGraphics.drawImage(img, 0, 0, i * 2, j * 2, null);
   }
 }
-
-/* Location:           /Users/mbilker/Downloads/minecraft/
- * Qualified Name:     net.minecraft.TexturedPanel
- * JD-Core Version:    0.6.1
- */

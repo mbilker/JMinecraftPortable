@@ -35,8 +35,3 @@ public Insets getInsets()
     return insets;
   }
 }
-
-/* Location:           /Users/mbilker/Downloads/minecraft/
- * Qualified Name:     net.minecraft.TransparentPanel
- * JD-Core Version:    0.6.1
- */

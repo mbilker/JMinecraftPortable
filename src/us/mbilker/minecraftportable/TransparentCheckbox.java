@@ -19,8 +19,3 @@ public boolean isOpaque()
     return false;
   }
 }
-
-/* Location:           /Users/mbilker/Downloads/minecraft/
- * Qualified Name:     net.minecraft.TransparentCheckbox
- * JD-Core Version:    0.6.1
- */

@@ -40,8 +40,3 @@ public void paintComponent(Graphics paramGraphics)
     paramGraphics.drawImage(bgImage, 24, 24, null);
   }
 }
-
-/* Location:           /Users/mbilker/Downloads/minecraft/
- * Qualified Name:     net.minecraft.LogoPanel
- * JD-Core Version:    0.6.1
- */

@@ -213,8 +213,3 @@ public class LauncherFrame extends Frame
     return paramString.substring(i + 1);
   }
 }
-
-/* Location:           /Users/mbilker/Downloads/minecraft/
- * Qualified Name:     net.minecraft.LauncherFrame
- * JD-Core Version:    0.6.1
- */
