@@ -37,9 +37,8 @@ public class LauncherFrame extends Frame
 
     pack();
     setLocationRelativeTo(null);
-    try
-    {
-      setIconImage(ImageIO.read(LauncherFrame.class.getResource("favicon.png")));
+    try {
+    	setIconImage(ImageIO.read(LauncherFrame.class.getResource("Minecraft.png")));
     } catch (IOException localIOException) {
       localIOException.printStackTrace();
     }
