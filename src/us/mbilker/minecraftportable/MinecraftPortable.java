@@ -21,9 +21,9 @@ public class MinecraftPortable {
         Date date = new Date();
 		
 		Main.log("Minecraft Portable 2.8");
-		Main.log("by mbilker\n");
+		Main.log("by mbilker");
 		Main.log("Started at %s", dateFormat.format(date));
-		Main.log("Data directory: %s\n", dataDir.toString());
+		Main.log("Data directory: %s", dataDir.toString());
 		
 		if (!dataDir.exists()) {
 			Main.log("Data folder does not exist, creating. Typical on first start.");
