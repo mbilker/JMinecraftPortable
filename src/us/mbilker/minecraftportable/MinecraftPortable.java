@@ -13,6 +13,8 @@ public class MinecraftPortable {
 	
 	public static File clientDir = new File(dataDir, "mc");
 	
+	public static String[] ignore = { "lwjgl.jar", "jinput.jar", "lwjgl_util.jar", };
+	
 	public MinecraftPortable(String[] args) {
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss aa");

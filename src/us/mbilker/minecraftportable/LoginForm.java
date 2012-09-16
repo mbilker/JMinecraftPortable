@@ -20,6 +20,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
@@ -28,6 +31,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -63,6 +67,8 @@ public class LoginForm extends TransparentPanel
   private TransparentButton retryButton = new TransparentButton("Try again");
   private TransparentButton offlineButton = new TransparentButton("Play offline");
   private TransparentLabel errorLabel = new TransparentLabel("", 0);
+  private List<String> jarList = new ArrayList<String>();
+  public static JComboBox jarBox = new JComboBox();
   private LauncherFrame launcherFrame;
   private boolean outdated = false;
 
@@ -220,6 +226,15 @@ public class LoginForm extends TransparentPanel
 
     return scrollPane;
   }
+  
+	public static boolean arraySearch(String[] haystack, String needle) {
+		for (String element : haystack) {
+			if (element.equals(needle)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
   private JPanel buildMainLoginPanel() {
     TransparentPanel localTransparentPanel = new TransparentPanel(new BorderLayout());
@@ -230,7 +245,7 @@ public class LoginForm extends TransparentPanel
     localTexturedPanel.add(new LogoPanel(), "West");
     localTexturedPanel.add(new TransparentPanel(), "Center");
     localTexturedPanel.add(center(buildLoginPanel()), "East");
-    localTexturedPanel.setPreferredSize(new Dimension(100, 100));
+    localTexturedPanel.setPreferredSize(new Dimension(100, 130));
 
     localTransparentPanel.add(localTexturedPanel, "South");
     return localTransparentPanel;
@@ -257,10 +272,32 @@ public class LoginForm extends TransparentPanel
 
     localTransparentPanel2.add(new TransparentLabel("Username:", 4));
     localTransparentPanel2.add(new TransparentLabel("Password:", 4));
+    localTransparentPanel2.add(new TransparentLabel("JAR: ", 4));
     localTransparentPanel2.add(new TransparentLabel("", 4));
+    
+    File aDirectory = new File(MinecraftPortable.clientDir, "bin");
+  	String[] filesInDir = aDirectory.list();
+	if (filesInDir != null && filesInDir.length > 2) {
+		Arrays.sort(filesInDir);
+		// have everything i need, just print it now
+		for (int i = 0; i < filesInDir.length; i++) {
+			if (filesInDir[i].contains(".jar")
+					&& !arraySearch(MinecraftPortable.ignore, filesInDir[i])) {
+			jarList.add(filesInDir[i]);
+				Main.log("Found JAR: "
+						+ filesInDir[i]);
+			}
+		}
+	}
+	jarBox.setEditable(true);
+	for (String s : jarList) {
+		jarBox.addItem(s);
+	}
+	jarBox.setSelectedItem("minecraft.jar");
 
     localTransparentPanel3.add(userName);
     localTransparentPanel3.add(password);
+    localTransparentPanel3.add(jarBox);
     localTransparentPanel3.add(rememberBox);
 
     localTransparentPanel1.add(localTransparentPanel2, "West");

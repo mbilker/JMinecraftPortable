@@ -282,10 +282,21 @@ public void run()
 
     percentage = 95;
 
-    URL[] arrayOfURL = new URL[urlList.length];
+    /* URL[] arrayOfURL = new URL[urlList.length];
     for (int i = 0; i < urlList.length; i++) {
       arrayOfURL[i] = new File(paramFile, getJarName(urlList[i])).toURI().toURL();
+      Main.log("JAR: %s", arrayOfURL[i]);
+    } */
+    
+    URL[] arrayOfURL = new URL[(MinecraftPortable.ignore.length + 1)];
+    
+    for (int i = 0; i < MinecraftPortable.ignore.length; i++) {
+    	arrayOfURL[i] = new File(paramFile, MinecraftPortable.ignore[i]).toURI().toURL();
+    	Main.log("JAR: %s", new File(paramFile, MinecraftPortable.ignore[i]));
     }
+    
+    arrayOfURL[arrayOfURL.length-1] = new File(paramFile, ((String)LoginForm.jarBox.getSelectedItem())).toURI().toURL();
+    Main.log("JAR1: %s", arrayOfURL[arrayOfURL.length-1]);
 
     if (classLoader == null) {
       classLoader = new URLClassLoader(arrayOfURL)

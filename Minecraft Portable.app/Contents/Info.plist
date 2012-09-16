@@ -5,7 +5,7 @@
 	<key>CFBundleName</key>
 	<string>Minecraft Portable</string>
 	<key>CFBundleIdentifier</key>
-	<string>us.mbilker.minecraftportable.Main</string>
+	<string>us.mbilker.minecraftportable</string>
 	<key>CFBundleVersion</key>
 	<string>100.0</string>
 	<key>CFBundleAllowMixedLocalizations</key>
@@ -35,7 +35,7 @@
 		<key>JVMVersion</key>
 		<string>1.6+</string>
 		<key>ClassPath</key>
-			<string>$JAVAROOT/MinecraftPortable.jar</string>
+			<string>$JAVAROOT/Minecraft Portable.jar</string>
 		<key>Properties</key>
 		<dict>
 			<key>com.apple.mrj.application.apple.menu.about.name</key>
