@@ -170,6 +170,9 @@ public class LoginForm extends TransparentPanel
       localDataOutputStream.writeUTF(userName.getText());
       localDataOutputStream.writeUTF(rememberBox.isSelected() ? new String(password.getPassword()) : "");
       localDataOutputStream.close();
+      
+      MinecraftPortable.config.set("Settings.lastjar", jarBox.getSelectedItem());
+      MinecraftPortable.saveConfig();
     } catch (Exception localException) {
       localException.printStackTrace();
     }
@@ -284,8 +287,7 @@ public class LoginForm extends TransparentPanel
 			if (filesInDir[i].contains(".jar")
 					&& !arraySearch(MinecraftPortable.ignore, filesInDir[i])) {
 			jarList.add(filesInDir[i]);
-				Main.log("Found JAR: "
-						+ filesInDir[i]);
+				//Main.log("Found JAR: %s", filesInDir[i]);
 			}
 		}
 	}
@@ -293,7 +295,11 @@ public class LoginForm extends TransparentPanel
 	for (String s : jarList) {
 		jarBox.addItem(s);
 	}
-	jarBox.setSelectedItem("minecraft.jar");
+	if (jarList.contains(MinecraftPortable.config.getString("Settings.lastjar", "minecraft.jar"))) {
+		jarBox.setSelectedItem(MinecraftPortable.config.getString("Settings.lastjar", "minecraft.jar"));
+	} else {
+		jarBox.setSelectedItem("minecraft.jar");
+	}
 
     localTransparentPanel3.add(userName);
     localTransparentPanel3.add(password);

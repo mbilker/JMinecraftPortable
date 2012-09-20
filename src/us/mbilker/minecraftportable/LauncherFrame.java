@@ -159,56 +159,35 @@ public class LauncherFrame extends Frame
     return localLauncher.canPlayOffline();
   }
 
-  public static void main(String[] paramArrayOfString) {
+  public static void main(Map<String, String> args) {
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     }
     catch (Exception localException) {
     }
-    //System.out.println("asdf");
     System.setProperty("java.net.preferIPv4Stack", "true");
     System.setProperty("java.net.preferIPv6Addresses", "false");
 
     LauncherFrame localLauncherFrame = new LauncherFrame();
     localLauncherFrame.setVisible(true);
     localLauncherFrame.customParameters.put("stand-alone", "true");
-
-    String str1 = null;
-    String str2 = null;
-
-    for (String str4 : paramArrayOfString) {
-      if ((str4.startsWith("-u=")) || (str4.startsWith("--user="))) {
-        str1 = getArgValue(str4);
-        localLauncherFrame.customParameters.put("username", str1);
-        localLauncherFrame.loginForm.userName.setText(str1);
-      } else if ((str4.startsWith("-p=")) || (str4.startsWith("--password="))) {
-        str2 = getArgValue(str4);
-        localLauncherFrame.customParameters.put("password", str2);
-        localLauncherFrame.loginForm.password.setText(str2);
-      } else if (str4.startsWith("--noupdate")) {
-        localLauncherFrame.customParameters.put("noupdate", "true");
-      }
+   
+    if (args.containsKey("server")) {
+    	localLauncherFrame.customParameters.put("server", args.get("server"));
     }
-
-    if (paramArrayOfString.length >= 3) {
-      String param = paramArrayOfString[2];
-      String str3 = "25565";
-      if (param.contains(":")) {
-        String[] arrayOfString = param.split(":");
-        param = arrayOfString[0];
-        str3 = arrayOfString[1];
-      }
-
-      localLauncherFrame.customParameters.put("server", param);
-      localLauncherFrame.customParameters.put("port", str3);
+    if (args.containsKey("noupdate")) {
+    	localLauncherFrame.customParameters.put("noupdate", args.get("noupdate"));
     }
-  }
-
-  private static String getArgValue(String paramString) {
-    int i = paramString.indexOf('=');
-    if (i < 0) {
-      return "";
+    if (args.containsKey("port")) {
+    	localLauncherFrame.customParameters.put("port", args.get("port"));
     }
-    return paramString.substring(i + 1);
+    if (args.containsKey("user")) {
+    	localLauncherFrame.customParameters.put("username", args.get("user"));
+        localLauncherFrame.loginForm.userName.setText(args.get("user"));
+    }
+    if (args.containsKey("password")) {
+    	localLauncherFrame.customParameters.put("password", args.get("password"));
+        localLauncherFrame.loginForm.password.setText(args.get("password"));
+    }
   }
 }

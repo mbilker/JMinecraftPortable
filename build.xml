@@ -28,7 +28,7 @@
 	
 	<target name="compress" description="Compression target">
 		<echo>Compressing</echo>
-		<jar jarfile="Minecraft Portable.jar" basedir="bin" includes="us/**/*">
+		<jar jarfile="MinecraftPortable.jar" basedir="bin" includes="**/*">
 			<zipgroupfileset dir="lib" includes="*.jar"/>
 			<fileset dir="resources" includes="**"/>
 			<manifest>
