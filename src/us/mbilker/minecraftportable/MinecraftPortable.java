@@ -55,7 +55,10 @@ public class MinecraftPortable {
 		if (!configFile.exists()) {
 			Main.log("Config file does not exist, creating. Typical on first start.");
 			try {
-				configFile.createNewFile();
+				config.set("Autologin.server", "");
+				config.set("Settings.noupdate", false);
+				config.set("Settings.lastjar", "minecraft.jar");
+				saveConfig();
 			} catch (IOException e) {
 				Main.log("Problem creating config file");
 				e.printStackTrace();
@@ -91,14 +94,6 @@ public class MinecraftPortable {
 	      mapOfLauncherArgs.put("port", str3);
 	    }
 	    
-	    if (!config.getString("Autologin.user", "").isEmpty() && !mapOfLauncherArgs.containsKey("user")) {
-	    	Main.log("Using username from config, '%s'", config.getString("Autologin.user"));
-	    	mapOfLauncherArgs.put("user", config.getString("Autologin.user"));
-	    }
-	    if (!config.getString("Autologin.pass", "").isEmpty() && !mapOfLauncherArgs.containsKey("password")) {
-	    	Main.log("Using password from config");
-	    	mapOfLauncherArgs.put("password", config.getString("Autologin.pass"));
-	    }
 	    if (!config.getString("Autologin.server", "").isEmpty() && !mapOfLauncherArgs.containsKey("server") && !mapOfLauncherArgs.containsKey("port")) {
 	    	Main.log("Using server from config, '%s'", config.getString("Autologin.server"));
 	    	String server = config.getString("Autologin.server");
