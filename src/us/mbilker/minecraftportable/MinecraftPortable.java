@@ -33,6 +33,10 @@ public class MinecraftPortable {
 		Main.log("Started at %s", dateFormat.format(date));
 		Main.log("Data directory: %s", dataDir.toString());
 		
+		Main.log("Setting minecraft directory as user home and current directory just in case");
+		System.setProperty("user.home", clientDir.getAbsolutePath());
+		System.setProperty("user.dir", clientDir.getAbsolutePath());
+		
 		if (!dataDir.exists()) {
 			Main.log("Data folder does not exist, creating. Typical on first start.");
 			dataDir.mkdir();
